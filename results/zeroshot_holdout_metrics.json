@@ -1,0 +1,9 @@
+{
+  "model": "zeroshot",
+  "split": "holdout",
+  "n_images": 528,
+  "n_labels": 210,
+  "top1": 53.03,
+  "top5": 69.32,
+  "exact_match": 0.0
+}

@@ -1,0 +1,109 @@
+{
+  "n_images": 10534,
+  "exact_duplicates": {
+    "duplicate_groups": 199,
+    "files_in_groups": 398,
+    "groups_spanning_labels": 88,
+    "label_pairs_sharing_files": [
+      {
+        "labels": [
+          "La_Sagrada_Familia_Barcelona_Spain",
+          "Sagrada_Familia_in_Barcelona_Spain"
+        ],
+        "shared_groups": 30
+      },
+      {
+        "labels": [
+          "Blue_Mosque_in_Istanbul_Turkey",
+          "Sultan_Ahmed_Mosque_in_Istanbul_Turkey"
+        ],
+        "shared_groups": 20
+      },
+      {
+        "labels": [
+          "Le_Mont-Saint-Michel_in_Normandy_France",
+          "Mont_Saint-Michel_Normandy_France"
+        ],
+        "shared_groups": 18
+      },
+      {
+        "labels": [
+          "Acropolis_of_Athens_in_Athens_Greece",
+          "Parthenon_in_Athens"
+        ],
+        "shared_groups": 8
+      },
+      {
+        "labels": [
+          "Casa_Mila_in_Barcelona_Spain",
+          "La_Pedrera_in_Barcelona"
+        ],
+        "shared_groups": 7
+      },
+      {
+        "labels": [
+          "Lincoln_Memorial_in_Washington_D.C",
+          "Washington_Monument_in_Washington_DC_USA"
+        ],
+        "shared_groups": 4
+      },
+      {
+        "labels": [
+          "Peterhof_Palace_in_Saint_Petersburg",
+          "Tsarskoe_Selo_State_Museum-Reserve_in_Saint_Petersburg"
+        ],
+        "shared_groups": 1
+      }
+    ]
+  },
+  "train_test_leakage_current_split": {
+    "n_train": 7931,
+    "n_test": 2075,
+    "test_with_exact_copy_in_train": 58,
+    "of_which_same_label": 33,
+    "of_which_other_label": 25
+  },
+  "holdout": {
+    "n_images": 528,
+    "n_labels_covered": 181,
+    "near_duplicate_candidates": 79,
+    "confirmed_near_duplicates": 5,
+    "candidate_rule": "thumbnail corr >= 0.8 or dHash distance <= 10"
+  },
+  "holdout_sensitivity": {
+    "zeroshot": {
+      "all": {
+        "n_images": 528,
+        "top1": 53.03,
+        "top5": 69.32
+      },
+      "without_confirmed": {
+        "n_images": 523,
+        "top1": 52.96,
+        "top5": 69.02
+      },
+      "without_all_candidates": {
+        "n_images": 449,
+        "top1": 53.45,
+        "top5": 69.93
+      }
+    },
+    "finetuned": {
+      "all": {
+        "n_images": 528,
+        "top1": 86.36,
+        "top5": 92.05
+      },
+      "without_confirmed": {
+        "n_images": 523,
+        "top1": 86.42,
+        "top5": 91.97
+      },
+      "without_all_candidates": {
+        "n_images": 449,
+        "top1": 86.64,
+        "top5": 91.98
+      }
+    }
+  }
+}

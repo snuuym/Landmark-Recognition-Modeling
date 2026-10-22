@@ -1,0 +1,16 @@
+{
+  "criterion": "Audited from the 210 folder names only, without looking at model predictions. Two labels are aliases only if they name the same physical landmark. Part-of relations are listed separately and are NOT merged.",
+  "aliases": [
+    ["Casa_Mila_in_Barcelona_Spain", "La_Pedrera_in_Barcelona"],
+    ["La_Sagrada_Familia_Barcelona_Spain", "Sagrada_Familia_in_Barcelona_Spain"],
+    ["Le_Mont-Saint-Michel_in_Normandy_France", "Mont_Saint-Michel_Normandy_France"],
+    ["Blue_Mosque_in_Istanbul_Turkey", "Sultan_Ahmed_Mosque_in_Istanbul_Turkey"],
+    ["Tulum_Archaeological_Zone_Tulum_Mexico", "Tulum_in_Quintana_Roo"],
+    ["House_of_Parliament_and_Elizabeth_Tower_in_London_England", "Palace_of_Westminster_in_London_England"]
+  ],
+  "part_of_not_merged": [
+    ["Big_Ben_in_London_England", "Palace_of_Westminster_in_London_England"],
+    ["Colosseum_in_Rome_Italy", "Colosseum-Forum-Palatine_Hill_Circuit_in_Rome"],
+    ["Parthenon_in_Athens", "Acropolis_of_Athens_in_Athens_Greece"]
+  ]
+}

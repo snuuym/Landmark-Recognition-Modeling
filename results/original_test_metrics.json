@@ -1,0 +1,9 @@
+{
+  "note": "Measured on the cluster (1x V100) on the original 20% test split; from the training and baseline job logs.",
+  "split": "test",
+  "n_train_images": 7931,
+  "n_test_images": 2075,
+  "n_labels": 210,
+  "zeroshot": {"top1": 40.10, "top5": 56.00},
+  "finetuned": {"top1": 83.47, "top5": 89.54}
+}

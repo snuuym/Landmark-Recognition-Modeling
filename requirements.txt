@@ -1,0 +1,12 @@
+# Versions verified for inference, evaluation and figures (Python 3.13, macOS, CPU).
+# The released checkpoint was trained on Python 3.11 with transformers 5.x and peft 0.19.1.
+torch==2.6.0
+transformers==5.20.2
+peft==0.21.2
+sentence-transformers==6.2.0
+scikit-learn==1.6.1
+pillow==11.1.0
+numpy==2.2.4
+pandas==2.2.3
+matplotlib==3.10.1
+tqdm==4.67.1

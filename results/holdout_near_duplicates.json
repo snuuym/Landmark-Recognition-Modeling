@@ -1,0 +1,10 @@
+{
+  "note": "Holdout (.webp) images confirmed by visual inspection to be the same photograph as a .jpg/.png image in the dataset (re-watermarked, resized, or with an edited sky). Candidates were produced by src/audit_duplicates.py; 13 were inspected and these 5 confirmed. The search is not exhaustive: heavily cropped copies may be missed.",
+  "confirmed": [
+    "Sultan_Ahmed_Mosque_in_Istanbul_Turkey/35.blue-mosque-interior-istanbul-turkey.jpg.webp",
+    "Everglades_National_Park_in_Florida_USA/24.13091554-beautiful-scenery-at-everglades-national-park-of-florida-usa.jpg.webp",
+    "Statue_of_Unity_in_Kevadiya/7.statue_of_unity_sardar_patel-u205730969126cb--621x414livemint.jpg.webp",
+    "Charles_Bridge_in_Prague_Czech_Republic/2.30180066-charles-bridge-in-prague-czech-republic.jpg.webp",
+    "Mount_Bromo_East_Java_Indonesia/19.mount-bromo-volcano-gunung-bromo-sunrise-bromo-tengger-semeru-national-park-east-java-indonesia_29505-1303.jpg.webp"
+  ]
+}
