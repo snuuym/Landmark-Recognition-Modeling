@@ -62,16 +62,26 @@ def image_text_embeddings(model, pixel_values, input_ids, attention_mask):
         output_hidden_states=True,
     )
     image_embeds = vision_out.last_hidden_state.mean(dim=1)
-    text_embeds = text_out.hidden_states[-1].mean(dim=1)
+    # Average only over real tokens; padding positions still have outputs.
+    hidden = text_out.hidden_states[-1]
+    mask = attention_mask.unsqueeze(-1).to(hidden.dtype)
+    text_embeds = (hidden * mask).sum(dim=1) / mask.sum(dim=1).clamp_min(1)
     return image_embeds, text_embeds
 
 
-def itc_loss(image_embeds, text_embeds, temperature=0.07):
-    """Symmetric InfoNCE loss; matching image/text pairs lie on the diagonal."""
+def itc_loss(image_embeds, text_embeds, labels, temperature=0.07):
+    """Symmetric InfoNCE loss over a batch of image/text pairs.
+
+    Pairs that share a landmark label are all positives (soft targets), so
+    two photos of the same landmark in one batch are not pushed apart.
+    """
     image_embeds = F.normalize(image_embeds, dim=-1)
     text_embeds = F.normalize(text_embeds, dim=-1)
     logits = image_embeds @ text_embeds.T / temperature
-    targets = torch.arange(logits.size(0), device=logits.device)
+    same = torch.tensor(
+        [[a == b for b in labels] for a in labels], dtype=logits.dtype, device=logits.device
+    )
+    targets = same / same.sum(dim=1, keepdim=True)
     loss_i2t = F.cross_entropy(logits, targets)
     loss_t2i = F.cross_entropy(logits.T, targets)
     return (loss_i2t + loss_t2i) / 2

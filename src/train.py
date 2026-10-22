@@ -29,6 +29,7 @@ def parse_args():
     p.add_argument("--proj-dim", type=int, default=256)
     p.add_argument("--lora-r", type=int, default=16)
     p.add_argument("--lora-alpha", type=int, default=32)
+    p.add_argument("--max-length", type=int, default=32, help="Token length of the target text")
     p.add_argument("--num-workers", type=int, default=4)
     p.add_argument("--seed", type=int, default=42)
     return p.parse_args()
@@ -54,7 +55,7 @@ def main():
     ).to(device)
 
     train_loader = DataLoader(
-        LandmarkDataset(train_data, processor),
+        LandmarkDataset(train_data, processor, max_length=args.max_length),
         batch_size=args.batch_size,
         shuffle=True,
         num_workers=args.num_workers,
@@ -95,7 +96,9 @@ def main():
             image_embeds, text_embeds = image_text_embeddings(
                 model, pixel_values, input_ids, attention_mask
             )
-            itc = itc_loss(heads.img_proj(image_embeds), heads.text_proj(text_embeds))
+            itc = itc_loss(
+                heads.img_proj(image_embeds), heads.text_proj(text_embeds), batch["label_str"]
+            )
 
             loss = cap_loss + args.itc_weight * itc
             loss.backward()

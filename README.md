@@ -171,14 +171,14 @@ python src/train.py --data-root data/landmarks --output-dir checkpoints
 
 ## Limitations & future work
 
-**Known issues in the training code that produced the checkpoint:**
+**The released checkpoint was trained with the code at tag [`v1.0-as-trained`](https://github.com/snuuym/Blip-Based-Landmark-Recognition-Modeling/tree/v1.0-as-trained).** Review after training found four issues, which are fixed on `main` but not yet reflected in the checkpoint:
 
-- Label text is padded to 512 tokens, although names average about 14. This makes training much slower than it needs to be.
-- The ITC text embedding is a plain mean over all 512 positions, so padding dominates it. It should be a mask-weighted mean.
-- Within a batch, images of the same landmark are treated as ITC negatives. With batch size 8 and 210 classes, this happens in roughly 1 in 8 batches.
-- Training targets keep the folder names' underscores, so raw captions read like `himeji _ castle`. Evaluation normalizes both sides.
+- Label text was padded to 512 tokens, although names are at most 23. Now 32, which also makes training much faster.
+- The ITC text embedding was a plain mean over all 512 positions, so padding dominated it. Now a mask-weighted mean over real tokens.
+- Images of the same landmark in one batch were treated as ITC negatives (roughly 1 in 8 batches at batch size 8). They are now shared positives.
+- Training targets kept the folder names' underscores, so raw captions read like `himeji _ castle`. Targets are now readable names. Evaluation normalizes both sides either way.
 
-**Next steps:** merge alias labels, split train/validation/test by duplicate group, fix the issues above, retrain, and compare zero-shot vs LoRA-only vs LoRA + ITC on the same fixed split. Further ablations: unfreezing the vision encoder, LoRA rank, and a CLIP linear-probe baseline. Recognition is limited to the 210 training landmarks.
+**Next steps:** merge alias labels, split train/validation/test by duplicate group, retrain with the fixed code, and compare zero-shot vs LoRA-only vs LoRA + ITC on the same fixed split. Further ablations: unfreezing the vision encoder, LoRA rank, and a CLIP linear-probe baseline. Recognition is limited to the 210 training landmarks.
 
 ## Acknowledgements
 

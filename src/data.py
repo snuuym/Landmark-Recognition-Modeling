@@ -77,9 +77,16 @@ def pretty_label(label):
 
 
 class LandmarkDataset(Dataset):
-    def __init__(self, data, processor):
+    """Image + landmark-name pairs for captioning.
+
+    The target text is the readable name ("Eiffel Tower in Paris France");
+    `max_length` only needs to cover the longest name (15 tokens).
+    """
+
+    def __init__(self, data, processor, max_length=32):
         self.data = data
         self.processor = processor
+        self.max_length = max_length
 
     def __len__(self):
         return len(self.data)
@@ -89,9 +96,10 @@ class LandmarkDataset(Dataset):
         image = Image.open(img_path).convert("RGB")
         inputs = self.processor(
             images=image,
-            text=label,
+            text=pretty_label(label),
             return_tensors="pt",
             padding="max_length",
+            max_length=self.max_length,
             truncation=True,
         )
         return {
