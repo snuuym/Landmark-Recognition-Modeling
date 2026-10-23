@@ -31,8 +31,9 @@ def parse_args():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--data-root", required=True)
     p.add_argument("--checkpoint", default=None, help="LoRA checkpoint dir; omit for zero-shot BLIP")
-    p.add_argument("--split", choices=["test", "holdout"], default="test",
-                   help="test: 20%% split of jpg/png images; holdout: unseen .webp images")
+    p.add_argument("--split", choices=["test", "holdout"], default="holdout",
+                   help="holdout: .webp images skipped by training; test: 20%% split of jpg/png "
+                        "images (only valid for a checkpoint trained on the same split)")
     p.add_argument("--tag", default=None, help="Name used for the output files")
     p.add_argument("--output-dir", default="results")
     p.add_argument("--batch-size", type=int, default=16)
@@ -68,6 +69,10 @@ def main():
     tag = args.tag or ("finetuned" if args.checkpoint else "zeroshot")
 
     if args.split == "test":
+        if args.checkpoint:
+            print("WARNING: --split test rebuilds the 80/20 split with the current code. The released "
+                  "checkpoint was trained on a split that cannot be reconstructed, so this test set "
+                  "overlaps its training images. Use --split holdout unless you retrained on this split.")
         _, data = split_dataset(args.data_root)
     else:
         data = load_holdout(args.data_root)

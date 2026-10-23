@@ -10,5 +10,5 @@
 #SBATCH --time=01:00:00
 #SBATCH --output=logs/eval_%j.log
 
-python src/evaluate.py --data-root data/landmarks --checkpoint checkpoints --tag finetuned
-python src/evaluate.py --data-root data/landmarks --tag zeroshot
+python src/evaluate.py --data-root data/landmarks --checkpoint checkpoints --split holdout --tag finetuned
+python src/evaluate.py --data-root data/landmarks --split holdout --tag zeroshot

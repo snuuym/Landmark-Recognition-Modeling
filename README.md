@@ -171,7 +171,7 @@ python src/train.py --data-root data/landmarks --output-dir checkpoints
 
 ## Limitations & future work
 
-**The released checkpoint was trained with the code at tag [`v1.0-as-trained`](https://github.com/snuuym/Blip-Based-Landmark-Recognition-Modeling/tree/v1.0-as-trained).** Review after training found four issues, which are fixed on `main` but not yet reflected in the checkpoint:
+**The released checkpoint was trained with the original single-file cluster script.** Tag [`v1.0-as-trained`](https://github.com/snuuym/Blip-Based-Landmark-Recognition-Modeling/tree/v1.0-as-trained) keeps that script's model, loss and target processing unchanged. It adds packaging into modules, sorted file ordering and a fixed `torch` seed, so it does not reproduce the original split or random state. Review after training found four issues, which are fixed on `main` but not yet reflected in the checkpoint:
 
 - Label text was padded to 512 tokens, although names are at most 23. Now 32, which also makes training much faster.
 - The ITC text embedding was a plain mean over all 512 positions, so padding dominated it. Now a mask-weighted mean over real tokens.
